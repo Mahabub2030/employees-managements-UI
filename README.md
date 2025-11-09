@@ -136,10 +136,10 @@ Then open → [http://localhost:3000](http://localhost:3000)
 
 | Command         | Description              |
 | --------------- | ------------------------ |
-| `npm run dev`   | Start development server |
-| `npm run build` | Build for production     |
-| `npm run lint`  | Run ESLint               |
-| `npm run start` | Start production server  |
+| `bun run dev`   | Start development server |
+| `bun run build` | Build for production     |
+| `bun run lint`  | Run ESLint               |
+| `bun run start` | Start production server  |
 
 ---
 
