@@ -189,8 +189,8 @@ _(Add your screenshots in `/public/screenshots/` folder to display them here.)_
 
 **Mahabub Alam**  
 🚀 Full-Stack Developer | Building efficient management systems  
-🔗 [GitHub Profile](https://github.com/your-username)  
-📧 Email: your.email@example.com
+🔗 [GitHub Profile](https://github.com/Mahabub2030)  
+📧 Email: mahabubalam407557@gmail.com
 
 ---
 
