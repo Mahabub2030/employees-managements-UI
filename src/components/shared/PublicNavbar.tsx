@@ -33,6 +33,11 @@ const PublicNavbar = () => {
       label: " Add Employees",
       icon: IconUsers,
     },
+    {
+      href: "/dashboard/admin/time-sheet",
+      label: " Time Sheet",
+      icon: IconUsers,
+    },
   ];
 
   return (
