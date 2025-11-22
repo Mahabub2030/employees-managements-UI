@@ -2,10 +2,10 @@
 "use client";
 
 import { useActionState } from "react";
-import { registerValidations } from "./shared/auth/registerValidation";
-import { Button } from "./ui/button";
-import { Field, FieldDescription, FieldGroup, FieldLabel } from "./ui/field";
-import { Input } from "./ui/input";
+import { registerValidations } from "../shared/auth/registerValidation";
+import { Button } from "./button";
+import { Field, FieldDescription, FieldGroup, FieldLabel } from "./field";
+import { Input } from "./input";
 
 const RegisterForm = () => {
   const [state, formAction, isPending] = useActionState(

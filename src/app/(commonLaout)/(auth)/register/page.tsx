@@ -1,4 +1,3 @@
-import RegisterForm from "@/components/register-form";
 import {
   Card,
   CardContent,
@@ -6,6 +5,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import RegisterForm from "@/components/ui/register-form";
 
 const RegisterPage = () => {
   return (

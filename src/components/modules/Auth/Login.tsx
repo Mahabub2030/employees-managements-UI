@@ -72,11 +72,11 @@ export default function Login() {
             case "ADMIN":
               router.push("/dashboard/admin");
               break;
-            case "DOCTOR":
-              router.push("/dashboard/doctor");
+            case "SUPERADMIN":
+              router.push("/dashboard/SUPERADMIN");
               break;
-            case "PATIENT":
-              router.push("/dashboard/patient");
+            case "HRADMIN":
+              router.push("/dashboard/HRADMIN");
               break;
             default:
               router.push("/");

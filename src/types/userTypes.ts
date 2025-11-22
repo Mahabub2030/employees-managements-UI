@@ -2,11 +2,16 @@
 export interface userInterface {
   id: string;
   email: string;
-  role: "ADMIN" | "DOCTOR" | "PATIENT";
+  role: "ADMIN" | "SUPERADMIN" | "HRADMIN";
   exp: number;
   iat: number;
 }
-
+export interface EmployeInerface {
+  id: string;
+  name: string;
+  email: string;
+  sapIdNumber: string;
+}
 export interface DoctorInterface {
   id: string;
   name: string;

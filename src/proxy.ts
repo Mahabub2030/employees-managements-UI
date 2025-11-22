@@ -5,9 +5,9 @@ import { userInterface } from "./types/userTypes";
 
 const roleBasedRoutes = {
   ADMIN: ["/admin/dashboard"],
-  DOCTOR: ["/doctor/dashboard"],
-  PATIENT: [
-    "/patient/dashboard",
+  SUPERADMIN: ["/superadmin/dashboard"],
+  HRADMIN: [
+    "/HrAdmin/dashboard",
     "/patient/appointments",
     "/patient/medical-records",
   ],

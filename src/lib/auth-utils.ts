@@ -1,4 +1,4 @@
-export type UserRole = "ADMIN" | "DOCTOR" | "PATIENT";
+export type UserRole = "ADMIN" | "SUPERADMIN" | "HRADMIN";
 
 // exact : ["/my-profile", "settings"]
 //   patterns: [/^\/dashboard/, /^\/patient/], // Routes starting with /dashboard/* /patient/*
@@ -51,15 +51,15 @@ export const isRouteMatches = (
 
 export const getRouteOwner = (
   pathname: string
-): "ADMIN" | "DOCTOR" | "PATIENT" | "COMMON" | null => {
+): "ADMIN" | "SUPERADMIN" | "HRADMIN" | "COMMON" | null => {
   if (isRouteMatches(pathname, adminProtectedRoutes)) {
     return "ADMIN";
   }
   if (isRouteMatches(pathname, doctorProtectedRoutes)) {
-    return "DOCTOR";
+    return "SUPERADMIN";
   }
   if (isRouteMatches(pathname, patientProtectedRoutes)) {
-    return "PATIENT";
+    return "HRADMIN";
   }
   if (isRouteMatches(pathname, commonProtectedRoutes)) {
     return "COMMON";
@@ -69,12 +69,12 @@ export const getRouteOwner = (
 
 export const getDefaultDashboardRoute = (role: UserRole): string => {
   if (role === "ADMIN") {
-    return "/admin/dashboard";
+    return "dashboard/admin/";
   }
-  if (role === "DOCTOR") {
-    return "/doctor/dashboard";
+  if (role === "SUPERADMIN") {
+    return "dashboard/superadmin";
   }
-  if (role === "PATIENT") {
+  if (role === "HRADMIN") {
     return "/dashboard";
   }
   return "/";
