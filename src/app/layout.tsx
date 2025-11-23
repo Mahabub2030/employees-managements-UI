@@ -16,8 +16,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "PH-Health-Care",
-  description: "A healthcare application built with Next.js",
+  title: "employee Management System",
+  description: "An employee management application built with Next.js",
 };
 
 export default function RootLayout({

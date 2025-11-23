@@ -9,10 +9,10 @@ export default function Home() {
   return (
     <>
       <Head>
-        <title>AI-Powered Healthcare - Find Your Perfect Doctor</title>
+        <title>AI-Powered Employee Management Systems</title>
         <meta
           name="description"
-          content="Discover top-rated doctors tailored to your needs with our AI-powered healthcare platform. Get personalized recommendations and book appointments effortlessly."
+          content="Control and manage your workforce efficiently with our AI-powered employee management system including attendance tracking, performance evaluation, and payroll management ID Validation also ."
         />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />

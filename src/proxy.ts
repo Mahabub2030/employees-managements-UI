@@ -4,13 +4,9 @@ import { NextResponse } from "next/server";
 import { userInterface } from "./types/userTypes";
 
 const roleBasedRoutes = {
-  ADMIN: ["/admin/dashboard"],
-  SUPERADMIN: ["/superadmin/dashboard"],
-  HRADMIN: [
-    "/HrAdmin/dashboard",
-    "/patient/appointments",
-    "/patient/medical-records",
-  ],
+  ADMIN: ["dashboard/admin"],
+  SUPERADMIN: ["dashboard/superadmin"],
+  HRADMIN: ["/HrAdmin/dashboard"],
 };
 
 const authRoutes = ["/login", "/register", "/forgot-password"];
