@@ -30,7 +30,7 @@ import Link from "next/link";
 const { user } = await checkAuthStatus();
 console.log(user);
 
-// const { role } = user || { role: "guest" };
+const { role } = user || { role: "guest" };
 
 const navMainItems = [
   {
@@ -55,20 +55,20 @@ const navMainItems = [
   },
 ];
 
-// if (role === "ADMIN") {
-//   navMainItems.push(
-//     {
-//       title: "Manage Doctors",
-//       url: "/dashboard/admin/manage-doctors",
-//       icon: IconSettings,
-//     },
-//     {
-//       title: "Manage Patients",
-//       url: "/dashboard/admin/manage-patients",
-//       icon: IconUsers,
-//     }
-//   );
-// }
+if (role === "ADMIN") {
+  navMainItems.push(
+    {
+      title: "Manage Doctors",
+      url: "/dashboard/admin/manage-doctors",
+      icon: IconSettings,
+    },
+    {
+      title: "Manage Patients",
+      url: "/dashboard/admin/manage-patients",
+      icon: IconUsers,
+    }
+  );
+}
 
 const data = {
   user: {

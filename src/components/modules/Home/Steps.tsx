@@ -14,43 +14,43 @@ import React from "react";
 const steps = [
   {
     icon: Search,
-    title: "Search Doctor",
-    description: "Find your doctor easily with a minimum of effort.",
+    title: "Search Employee",
+    description: "Find your employee easily with a minimum of effort.",
   },
   {
     icon: ClipboardList,
-    title: "Check Doctor Profile",
-    description: "Get to know your doctor better.",
+    title: "Check Employee Profile",
+    description: "Get to know your employee better.",
   },
   {
     icon: CalendarCheck,
-    title: "Schedule Appointment",
+    title: "Schedule Vacation",
     description: "Choose the time and date that suits you.",
   },
   {
     icon: ShieldCheck,
     title: "Get Your Solution",
-    description: "Our doctors are here to help you.",
+    description: "Our HR admin is here to help you.",
   },
   {
     icon: FileText,
-    title: "Electronic prescription",
-    description: "Get your prescription instantly.",
+    title: "Electronic documents",
+    description: "Get your documents instantly.",
   },
   {
     icon: Video,
     title: "Instant video consultation",
-    description: "Consult with your doctor from anywhere.",
+    description: "Consult with your HR admin from anywhere.",
   },
   {
     icon: CreditCard,
-    title: "Easy payment options",
+    title: "Easy payment Visa",
     description: "Pay with ease using various methods.",
   },
   {
     icon: HeartPulse,
-    title: "Health recovery",
-    description: "Start your journey to better health.",
+    title: " Documents recovery",
+    description: "Recover your important documents quickly.",
   },
 ];
 
@@ -113,11 +113,11 @@ const Steps = () => {
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center max-w-2xl mx-auto">
           <h2 className="text-3xl font-bold text-foreground">
-            Easy Steps to Get Your Solution
+            Easy Steps to Get Your Solution from Our Hr Admin
           </h2>
           <p className="text-muted-foreground mt-4">
-            We provide advanced technologies and high-quality surgery facilities
-            right here.
+            We provide advanced technologies and high-quality employee
+            management services right here.
           </p>
         </div>
 

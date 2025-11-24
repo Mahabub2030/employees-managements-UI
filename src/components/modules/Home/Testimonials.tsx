@@ -36,11 +36,11 @@ const Testimonials = () => {
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center max-w-2xl mx-auto">
           <h2 className="text-3xl font-bold text-foreground">
-            What Our Client Says
+            Our team members Testimonials
           </h2>
           <p className="text-muted-foreground mt-4">
-            We are committed to providing you with the best medical and
-            healthcare services.
+            We are committed to providing you with the best employee management
+            services.
           </p>
         </div>
 

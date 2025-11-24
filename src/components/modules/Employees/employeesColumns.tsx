@@ -2,6 +2,7 @@
 
 import { DateCell } from "@/components/shared/cell/DateCell";
 import { StatusBadgeCell } from "@/components/shared/cell/StatusBadgeCell";
+
 import { UserInfoCell } from "@/components/shared/cell/UserInfoCell";
 import { Column } from "@/components/shared/ManagmentTable";
 
@@ -9,7 +10,13 @@ import { IEmployee } from "@/types/employee.interface";
 
 export const employeesColumns: Column<IEmployee>[] = [
   {
-    header: "Employee",
+    header: "S.No",
+    accessor: (employee) => (
+      <span className="text-sm font-medium">{employee.S_NO}</span>
+    ),
+  },
+  {
+    header: "Employee Name",
     accessor: (employee) => (
       <UserInfoCell
         name={employee.name}

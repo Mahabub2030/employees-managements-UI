@@ -1,5 +1,6 @@
 import EmployeesManagementHeader from "@/components/modules/Employees/EmployeesManagementHeader";
-import { EmployeeTable } from "@/components/modules/Employees/EmployeTable";
+import EmployeTable from "@/components/modules/Employees/EmployeTable";
+
 import { getEmployees } from "@/components/services/admin/getEmployees";
 import RefreshButton from "@/components/shared/RefreshButton";
 import SearchFilter from "@/components/shared/SearchFilter";
@@ -31,18 +32,8 @@ export default async function EmployeePage() {
         <RefreshButton />
       </div>
       <Suspense fallback={<TableSkeleton columns={10} rows={10} />}>
-        {/* <DoctorsTable
-          doctors={emolyeesResult.data}
-          specialities={emolyeesResult.data}
-        />   */}
-        <EmployeeTable employees={emolyeesResult.data} />
-        {/* Pagination */}
-        {/* Calculate total pages */}
-
-        <TablePagination
-          currentPage={emolyeesResult.meta.page}
-          totalPages={totalPages}
-        />
+        <EmployeTable employees={emolyeesResult?.data?.map || []} />
+        <TablePagination total={emolyeesResult?.total || 0} />
       </Suspense>
     </div>
   );

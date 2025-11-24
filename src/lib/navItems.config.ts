@@ -35,7 +35,7 @@ export const getCommonNavItems = (role: UserRole): NavSection[] => {
   ];
 };
 
-export const doctorNavItems: NavSection[] = [
+export const hradminNavItems: NavSection[] = [
   {
     title: "Emolyee managments Management",
     items: [
@@ -64,7 +64,7 @@ export const doctorNavItems: NavSection[] = [
 
 // superadmin
 
-export const patientNavItems: NavSection[] = [
+export const superadminNavItems: NavSection[] = [
   {
     title: "Appointments",
     items: [
@@ -103,7 +103,7 @@ export const patientNavItems: NavSection[] = [
 // admin
 export const adminNavItems: NavSection[] = [
   {
-    title: "User Management",
+    title: "Admin Management",
     items: [
       {
         title: "Admins",
@@ -113,13 +113,13 @@ export const adminNavItems: NavSection[] = [
       },
       {
         title: "Employees",
-        href: "/dashboard/employees",
+        href: "/employees",
         icon: "Stethoscope", // ✅ String
         roles: ["ADMIN"],
       },
       {
-        title: "Managmenst Employee",
-        href: "/admin/dashboard/patients-management",
+        title: "Add-Employee",
+        href: "/addemployees",
         icon: "Users", // ✅ String
         roles: ["ADMIN"],
       },
@@ -130,18 +130,18 @@ export const adminNavItems: NavSection[] = [
     items: [
       {
         title: "ID Valedation",
-        href: "/admin/dashboard/appointments-management",
+        href: "/id",
         icon: "Calendar", // ✅ String
         roles: ["ADMIN"],
       },
       {
-        title: "Schedules",
-        href: "/admin/dashboard/schedules-management",
+        title: "Time Sheet",
+        href: "/timesheet",
         icon: "Clock", // ✅ String
         roles: ["ADMIN"],
       },
       {
-        title: "Specialities",
+        title: "Task",
         href: "/admin/dashboard/specialities-management",
         icon: "Hospital", // ✅ String
         roles: ["ADMIN"],
@@ -157,9 +157,9 @@ export const getNavItemsByRole = (role: UserRole): NavSection[] => {
     case "ADMIN":
       return [...commonNavItems, ...adminNavItems];
     case "SUPERADMIN":
-      return [...commonNavItems, ...doctorNavItems];
+      return [...commonNavItems, ...superadminNavItems];
     case "HRADMIN":
-      return [...commonNavItems, ...patientNavItems];
+      return [...commonNavItems, ...hradminNavItems];
     default:
       return [];
   }
