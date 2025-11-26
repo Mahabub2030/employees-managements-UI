@@ -4,8 +4,8 @@ import { NextResponse } from "next/server";
 import { userInterface } from "./types/userTypes";
 
 const roleBasedRoutes = {
-  ADMIN: ["dashboard/admin"],
-  SUPERADMIN: ["dashboard/superadmin"],
+  ADMIN: ["/dashboard/admin"],
+  SUPERADMIN: ["/dashboard/superadmin"],
   HRADMIN: ["/HrAdmin/dashboard"],
 };
 
@@ -90,7 +90,7 @@ export async function proxy(request: NextRequest) {
 // See "Matching Paths" below to learn more
 export const config = {
   matcher: [
-    "/admin/dashboard/:path*",
+    "/dashboard/admin/:path*",
     "/login",
     "/register",
     "/forgot-password",
