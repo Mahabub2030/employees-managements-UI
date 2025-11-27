@@ -30,7 +30,7 @@ export const adminProtectedRoutes: RouteConfig = {
 };
 
 export const hradminProtectedRoutes: RouteConfig = {
-  patterns: [/^\/dashboard/], // Routes starting with /dashboard/*
+  patterns: [/^\/hradmin/], // Routes starting with /dashboard/*
   exact: [], // "/dashboard"
 };
 
@@ -69,13 +69,13 @@ export const getRouteOwner = (
 
 export const getDefaultDashboardRoute = (role: UserRole): string => {
   if (role === "ADMIN") {
-    return "/dashboard/admin/";
+    return "/dashboard/admin";
   }
   if (role === "SUPERADMIN") {
-    return "/dashboard/superadmin";
+    return "dashboard/superadmin";
   }
   if (role === "HRADMIN") {
-    return "/dashboard";
+    return "dashboard/hradmin";
   }
   return "/";
 };

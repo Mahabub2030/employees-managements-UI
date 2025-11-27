@@ -1,31 +1,25 @@
 export interface IEmployee {
-  S_NO?: number;
-  joiningDate: string;
+  S_NO?: string;
   id: string;
+  employeeId: string;
+  idNumber: string;
   name: string;
+  jobTitle: string;
+  educationQualification?: string;
+  profilePhoto?: string;
+  group: string;
+  joiningDate: string;
   email: string;
   phoneNumber: string;
-  nationality: string;
-  gender: string;
-
-  jobTitle: string;
-  group: string;
-  title: string; // Title/position
-  employeeId: number; // Internal Employee ID
-  idNumber: string; // National ID / Iqama number
-  educationQualification?: string;
-  status: "ACTIVE" | "INACTIVE" | "VACATION";
-
-  salary: string;
-  profilePhoto: string;
-  icon: string;
+  nationality?: string;
+  gender: "MALE" | "FEMALE";
+  status: "ACTIVE" | "INACTIVE" | "ON_LEAVE" | "TRANSFER";
   isDeleted: boolean;
-  createdAt: string;
-  updatedAt: string;
+  createdAt?: string; // Prisma auto-generates
+  updatedAt?: string; // Prisma auto-generates
 }
-
 export interface IEmployeeId {
-  data: IEmployeeId[];
+  employeesId?: IEmployeeId[];
   S_NO: string;
   name: string;
   email: string;

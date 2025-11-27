@@ -73,7 +73,7 @@ export default function EmployeTable({
         onSuccess={() => {
           setEditingEmployee(null);
         }}
-        employees={editingEmployee}
+        employee={editingEmployee}
       />
 
       {/* View Employee Detail Dialog */}

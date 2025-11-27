@@ -29,12 +29,12 @@ export default async function EmployeePage({
       <div className="flex space-x-2">
         <SearchFilter paramName="searchTerm" placeholder="Search employee.." />
         <SelectFilter
-          paramName="title"
+          paramName="idNumber"
           options={
             Array.isArray(emolyeesResult.data.data)
               ? emolyeesResult.data.data.map((employee: IEmployee) => ({
-                  label: employee?.title,
-                  value: employee?.title,
+                  label: employee?.name,
+                  value: employee?.idNumber,
                 }))
               : []
           }

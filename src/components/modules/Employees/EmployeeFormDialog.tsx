@@ -17,7 +17,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { creatEmployee } from "@/services/employeeManagement";
+import { createEmployee } from "@/services/employeeManagement";
+
 import { IEmployee } from "@/types/employee.interface";
 
 import Image from "next/image";
@@ -28,22 +29,25 @@ interface IEmployeeFormDialogProps {
   open: boolean;
   onClose: () => void;
   onSuccess: () => void;
-  employee?: IEmployee;
+  employee: IEmployee;
 }
 
 const EmployeeFormDialog = ({
   open,
   onClose,
   onSuccess,
-  employee,
+  employee: employees,
 }: IEmployeeFormDialogProps) => {
   const formRef = useRef<HTMLFormElement>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
-  const isEdit = !!employee;
+  const isEdit = !!employees;
 
-  const [gender, setGender] = useState<"MALE    " | "FEMALE">(
-    employee?.gender || "MALE"
+  const [gender, setGender] = useState<"MALE" | "FEMALE">(
+    employees?.gender ?? "MALE"
   );
+  const [employeeStatus, setEmployeeStatus] = useState<
+    "ACTIVE" | "INACTIVE" | "ON_LEAVE" | "TRANSFER"
+  >(employees?.status ?? "ACTIVE");
 
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
 
@@ -53,7 +57,7 @@ const EmployeeFormDialog = ({
   };
 
   const [state, formAction, pending] = useActionState(
-    isEdit ? updateEmployees.bind(null, employee.id!) : creatEmployee,
+    isEdit ? updateEmployees.bind(null, employees.id!) : createEmployee,
     null
   );
 
@@ -104,35 +108,37 @@ const EmployeeFormDialog = ({
           className="flex flex-col flex-1 min-h-0"
         >
           <div className="flex-1 overflow-y-auto px-6 space-y-4 pb-4">
+            {/* Name */}
             <Field>
               <FieldLabel htmlFor="name">Name</FieldLabel>
               <Input
                 id="name"
                 name="name"
-                placeholder="Dr. John Doe"
+                placeholder="Enter full name"
                 defaultValue={
-                  state?.formData?.name || (isEdit ? employee?.name : "")
+                  state?.formData?.name || (isEdit ? employees?.name : "")
                 }
               />
               <InputFieldError state={state} field="name" />
             </Field>
 
+            {/* Email */}
             <Field>
               <FieldLabel htmlFor="email">Email</FieldLabel>
               <Input
                 id="email"
                 name="email"
                 type="email"
-                placeholder="doctor@example.com"
-                // defaultValue={isEdit ? doctor?.email : undefined}
+                placeholder="Enter email address"
                 defaultValue={
-                  state?.formData?.email || (isEdit ? employee?.email : "")
+                  state?.formData?.email || (isEdit ? employees?.email : "")
                 }
                 disabled={isEdit}
               />
               <InputFieldError state={state} field="email" />
             </Field>
 
+            {/* Password (new only) */}
             {!isEdit && (
               <>
                 <Field>
@@ -163,48 +169,10 @@ const EmployeeFormDialog = ({
               </>
             )}
 
-            <InputFieldError field="specialties" state={state} />
-
-            <Field>
-              <FieldLabel htmlFor="contactNumber">Contact Number</FieldLabel>
-
-              <InputFieldError state={state} field="contactNumber" />
-            </Field>
-
-            <Field>
-              <FieldLabel htmlFor="address">Address</FieldLabel>
-
-              <InputFieldError state={state} field="address" />
-            </Field>
-
-            <Field>
-              <FieldLabel htmlFor="registrationNumber">
-                Registration Number
-              </FieldLabel>
-
-              <InputFieldError state={state} field="registrationNumber" />
-            </Field>
-
-            <Field>
-              <FieldLabel htmlFor="experience">
-                Experience (in years)
-              </FieldLabel>
-
-              <InputFieldError state={state} field="experience" />
-            </Field>
-
+            {/* Gender */}
             <Field>
               <FieldLabel htmlFor="gender">Gender</FieldLabel>
-              <Input
-                id="gender"
-                name="gender"
-                placeholder="Select gender"
-                defaultValue={gender}
-                // defaultValue={
-                //   state?.formData?.gender || (isEdit ? doctor?.gender : "")
-                // }
-                type="hidden"
-              />
+              <Input id="gender" name="gender" type="hidden" value={gender} />
               <Select
                 value={gender}
                 onValueChange={(value) => setGender(value as "MALE" | "FEMALE")}
@@ -220,38 +188,51 @@ const EmployeeFormDialog = ({
               <InputFieldError state={state} field="gender" />
             </Field>
 
+            {/* Phone */}
             <Field>
-              <FieldLabel htmlFor="appointmentFee">Appointment Fee</FieldLabel>
-
-              <InputFieldError state={state} field="appointmentFee" />
+              <FieldLabel htmlFor="phoneNumber">Contact Number</FieldLabel>
+              <Input
+                id="phoneNumber"
+                name="phoneNumber"
+                defaultValue={
+                  state?.formData?.phoneNumber ||
+                  (isEdit ? employees?.phoneNumber : "")
+                }
+              />
+              <InputFieldError state={state} field="phoneNumber" />
             </Field>
 
-            <Field>
-              <FieldLabel htmlFor="qualification">Qualification</FieldLabel>
+            {/* Status (optional, for edit only) */}
+            {isEdit && (
+              <Field>
+                <FieldLabel htmlFor="status">Status</FieldLabel>
+                <Select
+                  value={employeeStatus}
+                  onValueChange={(value) =>
+                    setEmployeeStatus(
+                      value as "ACTIVE" | "INACTIVE" | "ON_LEAVE" | "TRANSFER"
+                    )
+                  }
+                >
+                  <SelectTrigger>
+                    <SelectValue placeholder="Select status" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="ACTIVE">Active</SelectItem>
+                    <SelectItem value="INACTIVE">Inactive</SelectItem>
+                    <SelectItem value="ON_LEAVE">ON_LEAVE</SelectItem>
+                    <SelectItem value="TANSFAR">Transfer</SelectItem>
+                  </SelectContent>
+                </Select>
+              </Field>
+            )}
 
-              <InputFieldError state={state} field="qualification" />
-            </Field>
-
-            <Field>
-              <FieldLabel htmlFor="currentWorkingPlace">
-                Current Working Place
-              </FieldLabel>
-
-              <InputFieldError state={state} field="currentWorkingPlace" />
-            </Field>
-
-            <Field>
-              <FieldLabel htmlFor="designation">Designation</FieldLabel>
-
-              <InputFieldError state={state} field="designation" />
-            </Field>
-
+            {/* Profile Photo */}
             {!isEdit && (
               <Field>
                 <FieldLabel htmlFor="file">Profile Photo</FieldLabel>
                 {selectedFile && (
                   <Image
-                    //get from state if available
                     src={
                       typeof selectedFile === "string"
                         ? selectedFile
@@ -272,11 +253,74 @@ const EmployeeFormDialog = ({
                   onChange={handleFileChange}
                 />
                 <p className="text-xs text-gray-500 mt-1">
-                  Upload a profile photo for the doctor
+                  Upload a profile photo for the employee
                 </p>
                 <InputFieldError state={state} field="profilePhoto" />
               </Field>
             )}
+
+            {/* Other optional fields */}
+            <Field>
+              <FieldLabel htmlFor="group">Group</FieldLabel>
+              <Input
+                id="group"
+                name="group"
+                defaultValue={
+                  state?.formData?.group || (isEdit ? employees?.group : "")
+                }
+              />
+            </Field>
+
+            <Field>
+              <FieldLabel htmlFor="jobTitle">Job Title</FieldLabel>
+              <Input
+                id="jobTitle"
+                name="jobTitle"
+                defaultValue={
+                  state?.formData?.jobTitle ||
+                  (isEdit ? employees?.jobTitle : "")
+                }
+              />
+            </Field>
+
+            <Field>
+              <FieldLabel htmlFor="educationQualification">
+                Qualification
+              </FieldLabel>
+              <Input
+                id="educationQualification"
+                name="educationQualification"
+                defaultValue={
+                  state?.formData?.educationQualification ||
+                  (isEdit ? employees?.educationQualification : "")
+                }
+              />
+            </Field>
+
+            <Field>
+              <FieldLabel htmlFor="joiningDate">Joining Date</FieldLabel>
+              <Input
+                id="joiningDate"
+                name="joiningDate"
+                type="date"
+                defaultValue={
+                  state?.formData?.joiningDate ||
+                  (isEdit ? employees?.joiningDate.split("T")[0] : "")
+                }
+              />
+            </Field>
+
+            <Field>
+              <FieldLabel htmlFor="nationality">Nationality</FieldLabel>
+              <Input
+                id="nationality"
+                name="nationality"
+                defaultValue={
+                  state?.formData?.nationality ||
+                  (isEdit ? employees?.nationality : "")
+                }
+              />
+            </Field>
           </div>
 
           <div className="flex justify-end gap-2 px-6 py-4 border-t bg-gray-50">
@@ -292,8 +336,8 @@ const EmployeeFormDialog = ({
               {pending
                 ? "Saving..."
                 : isEdit
-                ? "Update Doctor"
-                : "Create Doctor"}
+                ? "Update Employee"
+                : "Create Employee"}
             </Button>
           </div>
         </form>

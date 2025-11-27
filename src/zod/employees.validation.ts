@@ -1,25 +1,24 @@
 import { z } from "zod";
 
 export const employeeZodSchema = z.object({
-  S_NO: z.string().min(1, "S_NO is required"),
+  S_NO: z.string().min(1, "S_NO is required").optional(), // optional if it’s just for table display
   name: z.string().min(2, "Name must be at least 2 characters"),
-  email: z.string().email({ message: "Invalid email address" }),
+  email: z.string().email("Invalid email address"),
   employeeId: z.string().min(1, "Employee ID is required"),
-  department: z.string().min(2, "Department must be at least 2 characters"),
-  position: z.string().min(2, "Position must be at least 2 characters"),
-  contactNumber: z
-    .string()
-    .min(10, "Contact number must be at least 10 digits"),
-  salary: z.string().min(1, "Salary is required"),
-  gender: z.enum(["MALE", "FEMALE"], {
-    message: "Gender must be either MALE or FEMALE",
-  }),
-  isDeleted: z.boolean().default(false),
-  createdAt: z.string().optional(), // ISO Date string
-  profilePhoto: z.string().url("Invalid photo URL").optional(),
-  id: z.string().min(1, "ID is required"),
-  title: z.string().optional(),
-  icon: z.string().optional(),
+  idNumber: z.string().min(1, "National ID / Iqama is required"), // Prisma field
+  department: z.string().min(2, "Department must be at least 2 characters"), // optional UI field
+  group: z.string().min(2, "Group is required"), // Prisma field
+  jobTitle: z.string().min(2, "Job Title must be at least 2 characters"),
+  educationQualification: z.string().optional(),
+  joiningDate: z.string().min(1, "Joining date is required"), // string to parse into Date
+  phoneNumber: z.string().min(10, "Contact number must be at least 10 digits"),
+  salary: z.string().optional(), // optional UI field
+  gender: z.enum(["MALE", "FEMALE"]),
+  status: z
+    .enum(["ACTIVE", "INACTIVE", "TANSFAR", "VACATION"])
+    .default("ACTIVE"),
+  profilePhoto: z.string().optional(),
+  nationality: z.string().optional(),
 });
 
 // Update  ZodeSchema here
