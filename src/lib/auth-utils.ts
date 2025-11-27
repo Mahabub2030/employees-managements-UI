@@ -19,8 +19,8 @@ export const commonProtectedRoutes: RouteConfig = {
   patterns: [], // [/password/change-password, /password/reset-password => /password/*]
 };
 
-export const doctorProtectedRoutes: RouteConfig = {
-  patterns: [/^\/doctor/], // Routes starting with /doctor/* , /assitants, /appointments/*
+export const superadminProtectedRoutes: RouteConfig = {
+  patterns: [/^\/superadmin/], // Routes starting with /doctor/* , /assitants, /appointments/*
   exact: [], // "/assistants"
 };
 
@@ -29,7 +29,7 @@ export const adminProtectedRoutes: RouteConfig = {
   exact: [], // "/admins"
 };
 
-export const patientProtectedRoutes: RouteConfig = {
+export const hradminProtectedRoutes: RouteConfig = {
   patterns: [/^\/dashboard/], // Routes starting with /dashboard/*
   exact: [], // "/dashboard"
 };
@@ -55,10 +55,10 @@ export const getRouteOwner = (
   if (isRouteMatches(pathname, adminProtectedRoutes)) {
     return "ADMIN";
   }
-  if (isRouteMatches(pathname, doctorProtectedRoutes)) {
+  if (isRouteMatches(pathname, superadminProtectedRoutes)) {
     return "SUPERADMIN";
   }
-  if (isRouteMatches(pathname, patientProtectedRoutes)) {
+  if (isRouteMatches(pathname, hradminProtectedRoutes)) {
     return "HRADMIN";
   }
   if (isRouteMatches(pathname, commonProtectedRoutes)) {
@@ -69,10 +69,10 @@ export const getRouteOwner = (
 
 export const getDefaultDashboardRoute = (role: UserRole): string => {
   if (role === "ADMIN") {
-    return "dashboard/admin/";
+    return "/dashboard/admin/";
   }
   if (role === "SUPERADMIN") {
-    return "dashboard/superadmin";
+    return "/dashboard/superadmin";
   }
   if (role === "HRADMIN") {
     return "/dashboard";

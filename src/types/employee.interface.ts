@@ -1,22 +1,29 @@
 export interface IEmployee {
-  S_NO: string;
+  S_NO?: number;
+  joiningDate: string;
+  id: string;
   name: string;
   email: string;
-  idNumber: string;
-  employeeId: string;
-  group: string;
-  jobTitle: string;
   phoneNumber: string;
   nationality: string;
-  salary: string;
   gender: string;
+
+  jobTitle: string;
+  group: string;
+  title: string; // Title/position
+  employeeId: number; // Internal Employee ID
+  idNumber: string; // National ID / Iqama number
+  educationQualification?: string;
+  status: "ACTIVE" | "INACTIVE" | "VACATION";
+
+  salary: string;
+  profilePhoto: string;
+  icon: string;
   isDeleted: boolean;
   createdAt: string;
-  profilePhoto: string;
-  id: string;
-  title: string;
-  icon: string;
+  updatedAt: string;
 }
+
 export interface IEmployeeId {
   data: IEmployeeId[];
   S_NO: string;
