@@ -85,7 +85,7 @@ const EmployeeFormDialog = ({
     onClose(); // Close dialog
   };
 
-  console.log();
+  console.log({ state, data: state?.formData });
 
   useEffect(() => {
     if (state?.success) {

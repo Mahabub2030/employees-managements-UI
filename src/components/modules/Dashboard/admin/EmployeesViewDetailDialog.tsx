@@ -65,17 +65,28 @@ const EmployeeViewDetailDialog = ({
               </p>
               <div className="flex flex-wrap gap-2 justify-center sm:justify-start">
                 <Badge
-                  variant={employee?.isDeleted ? "destructive" : "default"}
-                  className="text-sm"
+                  className={`text-sm ${
+                    employee?.isDeleted
+                      ? "bg-red-500 text-white" // if deleted, show red
+                      : employee.status === "ACTIVE"
+                      ? "bg-green-500 text-white"
+                      : employee.status === "INACTIVE"
+                      ? "bg-red-300 text-white"
+                      : employee.status === "ON_LEAVE"
+                      ? "bg-yellow-500 text-white"
+                      : employee.status === "TRANSFER"
+                      ? "bg-blue-500 text-white"
+                      : employee.status === "TERMINATED"
+                      ? "bg-red-900 text-white"
+                      : "bg-red-900 text-white" // default fallback
+                  }`}
                 >
-                  {employee?.isDeleted ? "Inactive" : "Active"}
+                  {employee?.isDeleted
+                    ? "Inactive"
+                    : employee.status
+                    ? employee.status.replace("_", " ")
+                    : "ON_LEAVE"}
                 </Badge>
-                {employee?.gender !== undefined && (
-                  <Badge variant="secondary" className="text-sm">
-                    <Star className="h-3 w-3 mr-1 fill-yellow-400 text-yellow-400" />
-                    {employee?.gender} Rating
-                  </Badge>
-                )}
               </div>
             </div>
           </div>

@@ -1,21 +1,49 @@
+// "use client";
+
+// import { Badge } from "@/components/ui/badge";
+
+// interface StatusBadgeCellProps {
+//   isDeleted?: boolean;
+//   activeText?: string;
+//   deletedText?: string;
+// }
+
+// export function StatusBadgeCell({
+//   isDeleted,
+//   activeText = "Active",
+//   deletedText = "Deleted",
+// }: StatusBadgeCellProps) {
+//   return (
+//     <Badge variant={isDeleted ? "destructive" : "default"}>
+//       {isDeleted ? deletedText : activeText}
+//     </Badge>
+//   );
+// }
 "use client";
 
 import { Badge } from "@/components/ui/badge";
 
 interface StatusBadgeCellProps {
-  isDeleted?: boolean;
-  activeText?: string;
-  deletedText?: string;
+  status: "ACTIVE" | "INACTIVE" | "VACATION" | string;
 }
 
-export function StatusBadgeCell({
-  isDeleted,
-  activeText = "Active",
-  deletedText = "Deleted",
-}: StatusBadgeCellProps) {
+export function StatusBadgeCell({ status }: StatusBadgeCellProps) {
+  const getClass = () => {
+    switch (status) {
+      case "ACTIVE":
+        return "bg-green-500 text-white";
+      case "INACTIVE":
+        return "bg-red-500 text-white";
+      case "ON_LEAVE":
+        return "bg-yellow-500 text-white";
+      default:
+        return "bg-gray-400 text-white";
+    }
+  };
+
   return (
-    <Badge variant={isDeleted ? "destructive" : "default"}>
-      {isDeleted ? deletedText : activeText}
+    <Badge className={getClass()}>
+      {status.charAt(0).toUpperCase() + status.slice(1).toLowerCase()}
     </Badge>
   );
 }
