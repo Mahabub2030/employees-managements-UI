@@ -12,7 +12,6 @@ export async function createEmployee(
   try {
     // Map FormData to IEmployee
     const payload: Partial<IEmployee> = {
-      S_NO: formData.get("S_NO") as string,
       name: formData.get("name") as string,
       idNumber: formData.get("employeeId") as string,
       group: formData.get("department") as string,
@@ -22,7 +21,7 @@ export async function createEmployee(
       email: formData.get("email") as string,
       phoneNumber: formData.get("phoneNumber") as string,
       gender: formData.get("gender") as "MALE" | "FEMALE",
-      status: formData.get("status") as Status,
+      status: formData.get("status") as string,
       isDeleted: false,
       profilePhoto: formData.get("profilePhoto") as string,
       nationality: formData.get("nationality") as string,
@@ -71,7 +70,6 @@ export async function updateEmployee(
   try {
     // Map FormData to IEmployee structure
     const payload: Partial<IEmployee> = {
-      S_NO: formData.get("S_NO") as string,
       name: formData.get("name") as string,
       idNumber: formData.get("employeeId") as string,
       group: formData.get("department") as string,

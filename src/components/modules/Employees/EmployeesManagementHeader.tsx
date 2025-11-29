@@ -8,11 +8,11 @@ import EmployeeFormDialog from "./EmployeeFormDialog";
 
 interface EmployeesManagementHeaderProps {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  employee?: any;
+  employees?: any;
 }
 
 const EmployeesManagementHeader = ({
-  employee,
+  employees,
 }: EmployeesManagementHeaderProps) => {
   const router = useRouter();
   const [, startTransition] = useTransition();
@@ -29,7 +29,7 @@ const EmployeesManagementHeader = ({
         open={isDialogOpen}
         onClose={() => setIsDialogOpen(false)}
         onSuccess={handleSuccess}
-        employee={employee}
+        employee={employees}
       />
 
       <ManagementPageHeader
