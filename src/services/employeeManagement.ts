@@ -1,7 +1,6 @@
 import { serverFetch } from "@/lib/server-fetch";
 import { zodValidator } from "@/lib/zodValidator";
 import { IEmployee } from "@/types/employee.interface";
-import { Status } from "@/types/staus";
 import { employeeZodSchema } from "@/zod/employees.validation";
 
 export async function createEmployee(
@@ -77,11 +76,15 @@ export async function updateEmployee(
       educationQualification: formData.get("educationQualification") as string,
       joiningDate: formData.get("joiningDate") as string,
       email: formData.get("email") as string,
-      phoneNumber: formData.get("phoneNumber") as string,
-      gender: formData.get("gender") as "MALE" | "FEMALE",
-      status: formData.get("status") as Status,
-      profilePhoto: formData.get("profilePhoto") as string,
-      nationality: formData.get("nationality") as string,
+      employeeId: formData.get("employeeId") as string,
+      iqamaNumber: formData.get("iqamaNumber") as string,
+      status: formData.get("status") as
+        | "ACTIVE"
+        | "INACTIVE"
+        | "ON_LEAVE"
+        | "TRANSFER",
+      profilePhoto: formData.get("profilePhoto") as string | undefined,
+      nationality: formData.get("nationality") as string | undefined,
     };
 
     // Validate payload with Zod

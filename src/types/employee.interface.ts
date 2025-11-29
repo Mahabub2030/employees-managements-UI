@@ -3,6 +3,7 @@ export interface IEmployee {
   id: string;
   employeeId: string;
   idNumber: string;
+  iqamaNumber: string;
   name: string;
   jobTitle: string;
   educationQualification?: string;
@@ -13,7 +14,7 @@ export interface IEmployee {
   phoneNumber: string;
   nationality?: string;
   gender: "MALE" | "FEMALE";
-  status: "ACTIVE" | "INACTIVE" | "ON_LEAVE" | "TRANSFER";
+  status: string;
   isDeleted: boolean;
   createdAt?: string; // Prisma auto-generates
   updatedAt?: string; // Prisma auto-generates

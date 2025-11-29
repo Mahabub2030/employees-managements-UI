@@ -45,12 +45,18 @@ const EmployeeFormDialog = ({
   const [gender, setGender] = useState<"MALE" | "FEMALE">(
     employees?.gender ?? "MALE"
   );
-  const [employeeStatus, setEmployeeStatus] = useState<
-    "ACTIVE" | "INACTIVE" | "ON_LEAVE" | "TRANSFER"
-  >(employees?.status ?? "ACTIVE");
+  const [employeeStatus, setEmployeeStatus] = useState<string>(
+    (employees?.status as string) || "ACTIVE"
+  );
 
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
 
+  const [employeeGroup, setEmployeeGroup] = useState<string>(
+    employees?.group || ""
+  );
+  const [employeeNationality, setEmployeeNationality] = useState<string>(
+    employees?.nationality || ""
+  );
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     setSelectedFile(file || null);
@@ -62,6 +68,13 @@ const EmployeeFormDialog = ({
   );
 
   const handleClose = () => {
+    formRef.current?.reset();
+
+    // Reset controlled Select states
+    setGender(employees?.gender ?? "MALE"); // Reset to original employee or default
+    setEmployeeStatus(employees?.status ?? "ACTIVE");
+    setEmployeeGroup(employees?.group ?? "");
+    setEmployeeNationality(employees?.nationality ?? "");
     if (fileInputRef.current) {
       fileInputRef.current.value = "";
     }
@@ -72,7 +85,7 @@ const EmployeeFormDialog = ({
     onClose(); // Close dialog
   };
 
-  console.log({ state });
+  console.log();
 
   useEffect(() => {
     if (state?.success) {
@@ -137,37 +150,36 @@ const EmployeeFormDialog = ({
               />
               <InputFieldError state={state} field="email" />
             </Field>
-
-            {/* Password (new only) */}
-            {!isEdit && (
-              <>
-                <Field>
-                  <FieldLabel htmlFor="password">Password</FieldLabel>
-                  <Input
-                    id="password"
-                    name="password"
-                    type="password"
-                    defaultValue={state?.formData?.password || ""}
-                    placeholder="Enter password"
-                  />
-                  <InputFieldError state={state} field="password" />
-                </Field>
-
-                <Field>
-                  <FieldLabel htmlFor="confirmPassword">
-                    Confirm Password
-                  </FieldLabel>
-                  <Input
-                    id="confirmPassword"
-                    name="confirmPassword"
-                    type="password"
-                    defaultValue={state?.formData?.confirmPassword || ""}
-                    placeholder="Confirm password"
-                  />
-                  <InputFieldError state={state} field="confirmPassword" />
-                </Field>
-              </>
-            )}
+            {/* Employee ID Number */}
+            <Field>
+              <FieldLabel htmlFor="employeeId">Employee ID Number</FieldLabel>
+              <Input
+                id="employeeId"
+                name="employeeId"
+                type="text"
+                placeholder="Enter employee ID number"
+                defaultValue={
+                  state?.formData?.employeeId ||
+                  (isEdit ? employees?.employeeId : "")
+                }
+              />
+              <InputFieldError state={state} field="employeeId" />
+            </Field>
+            {/* Iqama Number */}
+            <Field>
+              <FieldLabel htmlFor="iqamaNumber">Iqama Number</FieldLabel>
+              <Input
+                id="iqamaNumber"
+                name="iqamaNumber"
+                type="text"
+                placeholder="Enter Iqama number"
+                defaultValue={
+                  state?.formData?.iqamaNumber ||
+                  (isEdit ? employees?.iqamaNumber : "")
+                }
+              />
+              <InputFieldError state={state} field="iqamaNumber" />
+            </Field>
 
             {/* Gender */}
             <Field>
@@ -190,7 +202,7 @@ const EmployeeFormDialog = ({
 
             {/* Phone */}
             <Field>
-              <FieldLabel htmlFor="phoneNumber">Contact Number</FieldLabel>
+              <FieldLabel htmlFor="phoneNumber">Phone Number</FieldLabel>
               <Input
                 id="phoneNumber"
                 name="phoneNumber"
@@ -262,13 +274,29 @@ const EmployeeFormDialog = ({
             {/* Other optional fields */}
             <Field>
               <FieldLabel htmlFor="group">Group</FieldLabel>
-              <Input
+              {/* <Input
                 id="group"
                 name="group"
                 defaultValue={
                   state?.formData?.group || (isEdit ? employees?.group : "")
                 }
-              />
+              /> */}
+              <Select
+                value={employeeGroup}
+                onValueChange={(value) => setEmployeeGroup(value)}
+              >
+                <SelectTrigger>
+                  <SelectValue placeholder="Select Group" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="Landscaping"></SelectItem>
+                  <SelectItem value="Landscaping">Landscaping</SelectItem>
+                  <SelectItem value="Irrigation">Irrigation</SelectItem>
+                  <SelectItem value="Street Light">Street Light</SelectItem>
+                  <SelectItem value="Nursery">Nursery</SelectItem>
+                  <SelectItem value="Royal Terminal">Royal Terminal</SelectItem>
+                </SelectContent>
+              </Select>
             </Field>
 
             <Field>
@@ -312,14 +340,29 @@ const EmployeeFormDialog = ({
 
             <Field>
               <FieldLabel htmlFor="nationality">Nationality</FieldLabel>
-              <Input
+              {/* <Input
                 id="nationality"
                 name="nationality"
                 defaultValue={
                   state?.formData?.nationality ||
                   (isEdit ? employees?.nationality : "")
                 }
-              />
+              /> */}
+              <Select
+                value={employeeNationality}
+                onValueChange={(value) => setEmployeeNationality(value)}
+              >
+                <SelectTrigger>
+                  <SelectValue placeholder="Select Nationality" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="Saudi">Saudi</SelectItem>
+                  <SelectItem value="India">India</SelectItem>
+                  <SelectItem value="Bangladesh">Bangladesh</SelectItem>
+                  <SelectItem value="Pakistan">Pakistan</SelectItem>
+                  <SelectItem value="Egypt">Egypt</SelectItem>
+                </SelectContent>
+              </Select>
             </Field>
           </div>
 
