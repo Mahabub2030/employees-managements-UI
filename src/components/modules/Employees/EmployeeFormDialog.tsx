@@ -164,21 +164,6 @@ const EmployeeFormDialog = ({
               />
               <InputFieldError state={state} field="idNumber" />
             </Field>
-            {/* Iqama Number */}
-            {/* <Field>
-              <FieldLabel htmlFor="iqamaNumber">Iqama Number</FieldLabel>
-              <Input
-                id="iqamaNumber"
-                name="iqamaNumber"
-                type="text"
-                placeholder="Enter Iqama number"
-                defaultValue={
-                  state?.formData?.iqamaNumber ||
-                  (isEdit ? employees?.iqamaNumber : "")
-                }
-              />
-              <InputFieldError state={state} field="iqamaNumber" />
-            </Field> */}
 
             {/* Gender */}
             <Field>
@@ -276,22 +261,12 @@ const EmployeeFormDialog = ({
             {/* Other optional fields */}
             <Field>
               <FieldLabel htmlFor="group">Group</FieldLabel>
-              {/* <Input
-                id="group"
-                name="group"
-                defaultValue={
-                  state?.formData?.group || (isEdit ? employees?.group : "")
-                }
-              /> */}
-              <Select
-                value={employeeGroup}
-                onValueChange={(value) => setEmployeeGroup(value)}
-              >
+              <Input type="hidden" name="group" value={employeeGroup} />
+              <Select value={employeeGroup} onValueChange={setEmployeeGroup}>
                 <SelectTrigger>
                   <SelectValue placeholder="Select Group" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="Landscaping"></SelectItem>
                   <SelectItem value="Landscaping">Landscaping</SelectItem>
                   <SelectItem value="Irrigation">Irrigation</SelectItem>
                   <SelectItem value="Street Light">Street Light</SelectItem>
@@ -342,17 +317,14 @@ const EmployeeFormDialog = ({
 
             <Field>
               <FieldLabel htmlFor="nationality">Nationality</FieldLabel>
-              {/* <Input
-                id="nationality"
+              <Input
+                type="hidden"
                 name="nationality"
-                defaultValue={
-                  state?.formData?.nationality ||
-                  (isEdit ? employees?.nationality : "")
-                }
-              /> */}
+                value={employeeNationality}
+              />
               <Select
                 value={employeeNationality}
-                onValueChange={(value) => setEmployeeNationality(value)}
+                onValueChange={setEmployeeNationality}
               >
                 <SelectTrigger>
                   <SelectValue placeholder="Select Nationality" />

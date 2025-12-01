@@ -3,7 +3,7 @@ import { zodValidator } from "@/lib/zodValidator";
 import { IEmployee } from "@/types/employee.interface";
 import { updateEmployeeZodSchema } from "@/zod/employees.validation";
 
-export async function getEmployees() {
+export async function getEmployees(queryString: string) {
   try {
     const response = await serverFetch.get("/employees");
     const result = await response.json();
@@ -25,6 +25,7 @@ export async function getEmployees() {
 // const token = userInfo();
 export async function updateEmployees(
   id: string,
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   _prevState: any,
   formData: FormData
 ) {
@@ -36,7 +37,6 @@ export async function updateEmployees(
       jobTitle: formData.get("jobTitle") as string,
       educationQualification: formData.get("educationQualification") as string,
       gender: formData.get("gender") as "MALE" | "FEMALE",
-      employeeId: Number(formData.get("employeeId") as string),
 
       group: formData.get("group") as string,
     };
@@ -53,6 +53,7 @@ export async function updateEmployees(
     });
     const result = await response.json();
     return result;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (error: any) {
     console.log(error);
     return {
@@ -71,6 +72,7 @@ export async function softDeleteEmployee(id: string) {
     const result = await response.json();
 
     return result;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (error: any) {
     console.log(error);
     return {

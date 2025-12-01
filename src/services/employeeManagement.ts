@@ -100,8 +100,8 @@ export async function updateEmployee(
     // Map FormData to IEmployee structure
     const payload: Partial<IEmployee> = {
       name: formData.get("name") as string,
-      idNumber: formData.get("employeeId") as string,
-      group: formData.get("department") as string,
+      idNumber: formData.get("idNumber") as string,
+      group: formData.get("group") as string,
       jobTitle: formData.get("jobTitle") as string,
       educationQualification: formData.get("educationQualification") as string,
       joiningDate: formData.get("joiningDate") as string,

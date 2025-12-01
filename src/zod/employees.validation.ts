@@ -7,7 +7,7 @@ export const employeeZodSchema = z.object({
   idNumber: z.string().min(1, "National ID / Iqama is required"), // Prisma field
   // optional UI field
   jobTitle: z.string().min(2, "Job Title must be at least 2 characters"),
-  employeeId: z.string().min(1, "Employee ID is required"),
+
   educationQualification: z.string("educationQualification").optional(),
   profilePhoto: z.string().optional(),
   group: z.string().min(2, "Group is required"), // Prisma field
@@ -25,8 +25,6 @@ export const employeeZodSchema = z.object({
 // Update  ZodeSchema here
 
 export const updateEmployeeZodSchema = z.object({
-  S_NO: z.string().optional(),
-
   name: z
     .string()
     .min(2, { message: "Name must be at least 2 characters" })
@@ -34,9 +32,9 @@ export const updateEmployeeZodSchema = z.object({
 
   email: z.string().email({ message: "Invalid email format" }).optional(),
 
-  employeeId: z.string().optional(),
+  idNumber: z.string().optional(),
 
-  department: z
+  group: z
     .string()
     .min(2, { message: "Department must be at least 2 characters" })
     .optional(),
@@ -46,7 +44,7 @@ export const updateEmployeeZodSchema = z.object({
     .min(2, { message: "Position must be at least 2 characters" })
     .optional(),
 
-  contactNumber: z
+  phoneNumber: z
     .string()
     .min(10, { message: "Contact number must be at least 10 digits" })
     .optional(),
