@@ -146,27 +146,26 @@ const EmployeeFormDialog = ({
                 defaultValue={
                   state?.formData?.email || (isEdit ? employees?.email : "")
                 }
-                disabled={isEdit}
               />
               <InputFieldError state={state} field="email" />
             </Field>
             {/* Employee ID Number */}
             <Field>
-              <FieldLabel htmlFor="employeeId">Employee ID Number</FieldLabel>
+              <FieldLabel htmlFor="idNumber">Employee ID Number</FieldLabel>
               <Input
-                id="employeeId"
-                name="employeeId"
+                id="idNumber"
+                name="idNumber"
                 type="text"
                 placeholder="Enter employee ID number"
                 defaultValue={
-                  state?.formData?.employeeId ||
-                  (isEdit ? employees?.employeeId : "")
+                  state?.formData?.idNumber ||
+                  (isEdit ? employees?.idNumber : "")
                 }
               />
-              <InputFieldError state={state} field="employeeId" />
+              <InputFieldError state={state} field="idNumber" />
             </Field>
             {/* Iqama Number */}
-            <Field>
+            {/* <Field>
               <FieldLabel htmlFor="iqamaNumber">Iqama Number</FieldLabel>
               <Input
                 id="iqamaNumber"
@@ -179,7 +178,7 @@ const EmployeeFormDialog = ({
                 }
               />
               <InputFieldError state={state} field="iqamaNumber" />
-            </Field>
+            </Field> */}
 
             {/* Gender */}
             <Field>
@@ -188,6 +187,9 @@ const EmployeeFormDialog = ({
               <Select
                 value={gender}
                 onValueChange={(value) => setGender(value as "MALE" | "FEMALE")}
+                defaultValue={
+                  state?.formData?.gender || (isEdit ? employees?.gender : "")
+                }
               >
                 <SelectTrigger>
                   <SelectValue placeholder="Select gender" />

@@ -1,24 +1,25 @@
 import { z } from "zod";
 
 export const employeeZodSchema = z.object({
-  S_NO: z.string().min(1, "S_NO is required").optional(), // optional if it’s just for table display
+  // optional if it’s just for table display
   name: z.string().min(2, "Name must be at least 2 characters"),
-  email: z.string().email("Invalid email address"),
-  employeeId: z.string().min(1, "Employee ID is required"),
+
   idNumber: z.string().min(1, "National ID / Iqama is required"), // Prisma field
-  department: z.string().min(2, "Department must be at least 2 characters"), // optional UI field
-  group: z.string().min(2, "Group is required"), // Prisma field
+  // optional UI field
   jobTitle: z.string().min(2, "Job Title must be at least 2 characters"),
-  educationQualification: z.string().optional(),
+  employeeId: z.string().min(1, "Employee ID is required"),
+  educationQualification: z.string("educationQualification").optional(),
+  profilePhoto: z.string().optional(),
+  group: z.string().min(2, "Group is required"), // Prisma field
   joiningDate: z.string().min(1, "Joining date is required"), // string to parse into Date
+  email: z.string().email("Invalid email address"),
   phoneNumber: z.string().min(10, "Contact number must be at least 10 digits"),
   salary: z.string().optional(), // optional UI field
-  gender: z.enum(["MALE", "FEMALE"]),
+  gender: z.enum(["MALE", "FEMALE"], "Must be select option"),
   status: z
     .enum(["ACTIVE", "INACTIVE", "TANSFAR", "VACATION"])
     .default("ACTIVE"),
-  profilePhoto: z.string().optional(),
-  nationality: z.string().optional(),
+  nationality: z.string("Please Select The emolyee Nationlty"),
 });
 
 // Update  ZodeSchema here

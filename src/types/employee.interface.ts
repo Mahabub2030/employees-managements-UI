@@ -1,11 +1,10 @@
 export interface IEmployee {
   S_NO?: string;
   id: string;
-  employeeId: string;
-  idNumber: string;
-  iqamaNumber: string;
   name: string;
+  idNumber: string;
   jobTitle: string;
+  employeeId: string;
   educationQualification?: string;
   profilePhoto?: string;
   group: string;

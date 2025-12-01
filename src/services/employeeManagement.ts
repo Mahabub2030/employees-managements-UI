@@ -10,10 +10,10 @@ export async function createEmployee(
 ) {
   try {
     // Map FormData to IEmployee
-    const payload: Partial<IEmployee> = {
+    const validationPayload: Partial<IEmployee> = {
       name: formData.get("name") as string,
-      idNumber: formData.get("employeeId") as string,
-      group: formData.get("department") as string,
+      idNumber: formData.get("idNumber") as string,
+      group: formData.get("group") as string,
       jobTitle: formData.get("jobTitle") as string,
       educationQualification: formData.get("educationQualification") as string,
       joiningDate: formData.get("joiningDate") as string,
@@ -21,45 +21,75 @@ export async function createEmployee(
       phoneNumber: formData.get("phoneNumber") as string,
       gender: formData.get("gender") as "MALE" | "FEMALE",
       status: formData.get("status") as string,
-      isDeleted: false,
       profilePhoto: formData.get("profilePhoto") as string,
       nationality: formData.get("nationality") as string,
     };
 
-    // Validate payload using Zod
-    const validation = zodValidator(payload, employeeZodSchema);
-    if (!validation.success) return validation;
+    const validatedPayload = zodValidator(validationPayload, employeeZodSchema);
 
-    const validatedPayload = validation.data;
-
-    // Prepare FormData for server
-    const createFormData = new FormData();
-    createFormData.append("data", JSON.stringify(validatedPayload));
-
-    // Include file if uploaded
-    if (formData.get("file")) {
-      createFormData.append("file", formData.get("file") as Blob);
+    // Validation failed
+    if (!validatedPayload.success) {
+      return {
+        success: false,
+        message: "Validation failed",
+        formData: validationPayload,
+        errors: validatedPayload.errors,
+      };
     }
 
-    // POST request to server
+    // Ensure data exists
+    if (!validatedPayload.data) {
+      return {
+        success: false,
+        message: "Validation failed",
+        formData: validationPayload,
+      };
+    }
+
+    const backendPayload = {
+      employees: {
+        name: validatedPayload.data.name,
+        idNumber: validatedPayload.data.idNumber,
+        group: validatedPayload.data.group,
+        jobTitle: validatedPayload.data.jobTitle,
+        educationQualification: validatedPayload.data.educationQualification,
+        joiningDate: validatedPayload.data.joiningDate,
+        email: validatedPayload.data.email,
+        phoneNumber: validatedPayload.data.phoneNumber,
+        gender: validatedPayload.data.gender,
+        status: validatedPayload.data.status,
+        profilePhoto: validatedPayload.data.profilePhoto,
+        nationality: validatedPayload.data.nationality,
+      },
+    };
+
+    const newFormData = new FormData();
+    newFormData.append("data", JSON.stringify(backendPayload));
+
+    if (formData.get("file")) {
+      newFormData.append("file", formData.get("file") as Blob);
+    }
+
     const response = await serverFetch.post("/employees", {
-      body: createFormData,
+      body: newFormData,
     });
 
     const result = await response.json();
     return result;
-  } catch (error) {
-    console.log(error);
-    const message =
-      process.env.NODE_ENV === "development"
-        ? error instanceof Error
-          ? error.message
-          : String(error)
-        : "Something went wrong";
 
-    return { success: false, message };
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  } catch (error: any) {
+    console.log(error);
+    return {
+      success: false,
+      message:
+        process.env.NODE_ENV === "development"
+          ? error.message
+          : "Something went wrong",
+    };
   }
 }
+
 export async function updateEmployee(
   employeeId: string,
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -77,7 +107,6 @@ export async function updateEmployee(
       joiningDate: formData.get("joiningDate") as string,
       email: formData.get("email") as string,
       employeeId: formData.get("employeeId") as string,
-      iqamaNumber: formData.get("iqamaNumber") as string,
       status: formData.get("status") as
         | "ACTIVE"
         | "INACTIVE"
