@@ -33,7 +33,7 @@ export default async function EmployeePage({
         <SelectFilter
           paramName="idNumber"
           options={
-            Array.isArray(emolyeesResult.data.data)
+            Array.isArray(emolyeesResult?.data?.data)
               ? emolyeesResult.data.data.map((employee: IEmployee) => ({
                   label: employee?.name,
                   value: employee?.idNumber,

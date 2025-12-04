@@ -1,26 +1,27 @@
 export interface IEmployee {
-  S_NO?: string;
   id: string;
   name: string;
   idNumber: string;
   jobTitle: string;
-  employeeId: string;
-  educationQualification?: string;
-  profilePhoto?: string;
+  educationQualification: string;
+  profilePhoto?: string | null;
   group: string;
   joiningDate: string;
   email: string;
   phoneNumber: string;
-  nationality?: string;
-  gender: "MALE" | "FEMALE";
-  status: string;
   isDeleted: boolean;
-  createdAt?: string; // Prisma auto-generates
-  updatedAt?: string; // Prisma auto-generates
+  gender: string;
+  nationality: string;
+  status: string;
+  createdAt?: string;
+  updatedAt?: string;
+
+  employeeIds?: [];
+  employeeFiles?: [];
 }
+
 export interface IEmployeeId {
   employeesId?: IEmployeeId[];
-  S_NO: string;
   name: string;
   email: string;
   profilePhoto: string;

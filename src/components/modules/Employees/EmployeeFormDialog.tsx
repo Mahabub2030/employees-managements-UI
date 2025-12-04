@@ -21,7 +21,6 @@ import { createEmployee } from "@/services/employeeManagement";
 
 import { IEmployee } from "@/types/employee.interface";
 
-import Image from "next/image";
 import { useActionState, useEffect, useRef, useState } from "react";
 import { toast } from "sonner";
 
@@ -42,13 +41,13 @@ const EmployeeFormDialog = ({
   const fileInputRef = useRef<HTMLInputElement>(null);
   const isEdit = !!employees;
 
-  const [gender, setGender] = useState<"MALE" | "FEMALE">(
-    employees?.gender ?? "MALE"
-  );
+  const [gender, setGender] = useState<string>(employees?.gender ?? "MALE");
   const [employeeStatus, setEmployeeStatus] = useState<string>(
     (employees?.status as string) || "ACTIVE"
   );
-
+  const joiningDate = employees?.joiningDate
+    ? new Date(employees.joiningDate).toISOString()
+    : null;
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
 
   const [employeeGroup, setEmployeeGroup] = useState<string>(
@@ -57,10 +56,10 @@ const EmployeeFormDialog = ({
   const [employeeNationality, setEmployeeNationality] = useState<string>(
     employees?.nationality || ""
   );
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    setSelectedFile(file || null);
-  };
+  // const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  //   const file = e.target.files?.[0];
+  //   setSelectedFile(file || null);
+  // };
 
   const [state, formAction, pending] = useActionState(
     isEdit ? updateEmployees.bind(null, employees.id!) : createEmployee,
@@ -171,7 +170,7 @@ const EmployeeFormDialog = ({
               <Input id="gender" name="gender" type="hidden" value={gender} />
               <Select
                 value={gender}
-                onValueChange={(value) => setGender(value as "MALE" | "FEMALE")}
+                onValueChange={(value) => setGender(value as string)}
                 defaultValue={
                   state?.formData?.gender || (isEdit ? employees?.gender : "")
                 }
@@ -205,14 +204,7 @@ const EmployeeFormDialog = ({
             {isEdit && (
               <Field>
                 <FieldLabel htmlFor="status">Status</FieldLabel>
-                <Select
-                  value={employeeStatus}
-                  onValueChange={(value) =>
-                    setEmployeeStatus(
-                      value as "ACTIVE" | "INACTIVE" | "ON_LEAVE" | "TRANSFER"
-                    )
-                  }
-                >
+                <Select value={employeeStatus}>
                   <SelectTrigger>
                     <SelectValue placeholder="Select status" />
                   </SelectTrigger>
@@ -230,7 +222,7 @@ const EmployeeFormDialog = ({
             {!isEdit && (
               <Field>
                 <FieldLabel htmlFor="file">Profile Photo</FieldLabel>
-                {selectedFile && (
+                {/* {selectedFile && (
                   <Image
                     src={
                       typeof selectedFile === "string"
@@ -242,19 +234,19 @@ const EmployeeFormDialog = ({
                     height={50}
                     className="mb-2 rounded-full"
                   />
-                )}
-                <Input
+                )} */}
+                {/* <Input
                   ref={fileInputRef}
                   id="file"
                   name="file"
                   type="file"
                   accept="image/*"
                   onChange={handleFileChange}
-                />
+                /> */}
                 <p className="text-xs text-gray-500 mt-1">
                   Upload a profile photo for the employee
                 </p>
-                <InputFieldError state={state} field="profilePhoto" />
+                {/* <InputFieldError state={state} field="profilePhoto" /> */}
               </Field>
             )}
 
@@ -308,10 +300,7 @@ const EmployeeFormDialog = ({
                 id="joiningDate"
                 name="joiningDate"
                 type="date"
-                defaultValue={
-                  state?.formData?.joiningDate ||
-                  (isEdit ? employees?.joiningDate.split("T")[0] : "")
-                }
+                defaultValue={joiningDate ? joiningDate.split("T")[0] : ""}
               />
             </Field>
 

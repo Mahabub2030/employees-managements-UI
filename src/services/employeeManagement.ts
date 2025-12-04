@@ -104,14 +104,11 @@ export async function updateEmployee(
       group: formData.get("group") as string,
       jobTitle: formData.get("jobTitle") as string,
       educationQualification: formData.get("educationQualification") as string,
-      joiningDate: formData.get("joiningDate") as string,
+      joiningDate: new Date(
+        formData.get("joiningDate") as string
+      ).toISOString(),
       email: formData.get("email") as string,
-      employeeId: formData.get("employeeId") as string,
-      status: formData.get("status") as
-        | "ACTIVE"
-        | "INACTIVE"
-        | "ON_LEAVE"
-        | "TRANSFER",
+      status: formData.get("status") as string,
       profilePhoto: formData.get("profilePhoto") as string | undefined,
       nationality: formData.get("nationality") as string | undefined,
     };
