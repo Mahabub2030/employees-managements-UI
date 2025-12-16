@@ -2,15 +2,15 @@ import { z } from "zod";
 
 export const employeeZodSchema = z.object({
   // optional if it’s just for table display
-  name: z.string().min(2, "Name must be at least 2 characters"),
+  name: z.string().min(5, "Name must be at least 5 characters"),
 
-  idNumber: z.string().min(1, "National ID / Iqama is required"), // Prisma field
+  idNumber: z.string().min(4 / 10, "National ID / Iqama is required"), // Prisma field
   // optional UI field
-  jobTitle: z.string().min(2, "Job Title must be at least 2 characters"),
+  jobTitle: z.string().min(5, "Job Title must be at least 5 characters"),
 
   educationQualification: z.string("educationQualification").optional(),
   profilePhoto: z.string().nullable().optional(),
-  group: z.string().min(2, "Group is required"), // Prisma field
+  group: z.string().min(10, "Group is required"), // Prisma field
   joiningDate: z.string().min(1, "Joining date is required"), // string to parse into Date
   email: z.string().email("Invalid email address"),
   phoneNumber: z.string().min(10, "Contact number must be at least 10 digits"),
@@ -40,17 +40,15 @@ export const updateEmployeeZodSchema = z.object({
     .min(2, { message: "Department must be at least 2 characters" })
     .optional(),
 
-  position: z
+  jobTitle: z
     .string()
-    .min(2, { message: "Position must be at least 2 characters" })
+    .min(2, { message: "jobTitle must be at least 2 characters" })
     .optional(),
 
   phoneNumber: z
     .string()
     .min(10, { message: "Contact number must be at least 10 digits" })
     .optional(),
-
-  salary: z.string().optional(),
 
   gender: z
     .enum(["MALE", "FEMALE"], { message: "Gender must be MALE or FEMALE" })

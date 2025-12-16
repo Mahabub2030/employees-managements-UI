@@ -18,9 +18,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { createEmployee } from "@/services/employeeManagement";
-
 import { IEmployee } from "@/types/employee.interface";
-
 import { useActionState, useEffect, useRef, useState } from "react";
 import { toast } from "sonner";
 
@@ -38,7 +36,7 @@ const EmployeeFormDialog = ({
   employee: employees,
 }: IEmployeeFormDialogProps) => {
   const formRef = useRef<HTMLFormElement>(null);
-  const fileInputRef = useRef<HTMLInputElement>(null);
+  // const fileInputRef = useRef<HTMLInputElement>(null);
   const isEdit = !!employees;
 
   const [gender, setGender] = useState<string>(employees?.gender ?? "MALE");
@@ -48,7 +46,6 @@ const EmployeeFormDialog = ({
   const joiningDate = employees?.joiningDate
     ? new Date(employees.joiningDate).toISOString()
     : null;
-  const [selectedFile, setSelectedFile] = useState<File | null>(null);
 
   const [employeeGroup, setEmployeeGroup] = useState<string>(
     employees?.group || ""
@@ -62,7 +59,7 @@ const EmployeeFormDialog = ({
   // };
 
   const [state, formAction, pending] = useActionState(
-    isEdit ? updateEmployees.bind(null, employees.id!) : createEmployee,
+    isEdit ? updateEmployees.bind(null, employees.idNumber!) : createEmployee,
     null
   );
 
@@ -74,12 +71,7 @@ const EmployeeFormDialog = ({
     setEmployeeStatus(employees?.status ?? "ACTIVE");
     setEmployeeGroup(employees?.group ?? "");
     setEmployeeNationality(employees?.nationality ?? "");
-    if (fileInputRef.current) {
-      fileInputRef.current.value = "";
-    }
-    if (selectedFile) {
-      setSelectedFile(null); // Clear preview
-    }
+
     formRef.current?.reset(); // Clear form
     onClose(); // Close dialog
   };
@@ -96,14 +88,8 @@ const EmployeeFormDialog = ({
       onClose();
     } else if (state && !state.success) {
       toast.error(state.message);
-
-      if (selectedFile && fileInputRef.current) {
-        const dataTransfer = new DataTransfer();
-        dataTransfer.items.add(selectedFile);
-        fileInputRef.current.files = dataTransfer.files;
-      }
     }
-  }, [state, onSuccess, onClose, selectedFile]);
+  }, [state, onSuccess, onClose]);
 
   return (
     <Dialog open={open} onOpenChange={handleClose}>
@@ -215,6 +201,7 @@ const EmployeeFormDialog = ({
                     <SelectItem value="TANSFAR">Transfer</SelectItem>
                   </SelectContent>
                 </Select>
+                <InputFieldError state={state} field="status" />
               </Field>
             )}
 
@@ -243,17 +230,17 @@ const EmployeeFormDialog = ({
                   accept="image/*"
                   onChange={handleFileChange}
                 /> */}
-                <p className="text-xs text-gray-500 mt-1">
-                  Upload a profile photo for the employee
-                </p>
-                {/* <InputFieldError state={state} field="profilePhoto" /> */}
+
+                <InputFieldError state={state} field="profilePhoto" />
               </Field>
             )}
 
             {/* Other optional fields */}
             <Field>
               <FieldLabel htmlFor="group">Group</FieldLabel>
+
               <Input type="hidden" name="group" value={employeeGroup} />
+
               <Select value={employeeGroup} onValueChange={setEmployeeGroup}>
                 <SelectTrigger>
                   <SelectValue placeholder="Select Group" />

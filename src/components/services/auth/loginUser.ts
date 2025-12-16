@@ -6,7 +6,6 @@ import {
   isValidRedirectForRole,
   UserRole,
 } from "@/lib/auth-utils";
-
 import { serverFetch } from "@/lib/server-fetch";
 import { zodValidator } from "@/lib/zodValidator";
 import { loginValidationZodSchema } from "@/zod/auth.validation";
@@ -101,6 +100,19 @@ export const loginUser = async (
     if (!result.success) {
       throw new Error(result.message || "Login failed");
     }
+    // todo for reset form need inmpement after finsed the job;
+    // if (redirectTo && result.data.needPasswordChange) {
+    //   const requestedPath = redirectTo.toString();
+    //   if (isValidRedirectForRole(requestedPath, userRole)) {
+    //     redirect(`/reset-password?redirect=${requestedPath}`);
+    //   } else {
+    //     redirect("/reset-password");
+    //   }
+    // }
+
+    // if (result.data.needPasswordChange) {
+    //   redirect("/reset-password");
+    // }
 
     if (redirectTo) {
       const requestedPath = redirectTo.toString();

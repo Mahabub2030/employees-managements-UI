@@ -66,13 +66,14 @@ export async function createEmployee(
     const newFormData = new FormData();
     newFormData.append("data", JSON.stringify(backendPayload));
 
-    if (formData.get("file")) {
-      newFormData.append("file", formData.get("file") as Blob);
-    }
+    // if (formData.get("file")) {
+    //   newFormData.append("file", formData.get("file") as Blob);
+    // }
 
     const response = await serverFetch.post("/employees", {
       body: newFormData,
     });
+    console.log(newFormData);
 
     const result = await response.json();
     return result;

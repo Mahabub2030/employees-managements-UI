@@ -1,23 +1,16 @@
 export interface IEmployee {
-  id: string;
   name: string;
   idNumber: string;
   jobTitle: string;
   educationQualification: string;
-  profilePhoto?: string | null;
+  profilePhoto: string;
   group: string;
   joiningDate: string;
   email: string;
   phoneNumber: string;
-  isDeleted: boolean;
-  gender: string;
-  nationality: string;
+  gender: "MALE" | "FEMALE";
   status: string;
-  createdAt?: string;
-  updatedAt?: string;
-
-  employeeIds?: [];
-  employeeFiles?: [];
+  nationality: string;
 }
 
 export interface IEmployeeId {
