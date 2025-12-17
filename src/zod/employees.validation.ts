@@ -15,10 +15,7 @@ export const employeeZodSchema = z.object({
   email: z.string().email("Invalid email address"),
   phoneNumber: z.string().min(10, "Contact number must be at least 10 digits"),
   gender: z.enum(["MALE", "FEMALE"], "Must be select option"),
-  status: z
-    .enum(["ACTIVE", "INACTIVE", "TRANSFER", "VACATION"])
-    .nullable()
-    .optional(),
+  status: z.enum(["ACTIVE", "INACTIVE", "TRANSFER", "VACATION"]).optional,
 
   nationality: z.string("Please Select The emolyee Nationlty"),
 });

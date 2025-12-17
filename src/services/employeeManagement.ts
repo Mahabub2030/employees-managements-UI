@@ -20,7 +20,7 @@ export async function createEmployee(
       email: formData.get("email") as string,
       phoneNumber: formData.get("phoneNumber") as string,
       gender: formData.get("gender") as "MALE" | "FEMALE",
-      status: formData.get("status") as string,
+      status: (formData.get("status") as string) || "ACTIVE",
       profilePhoto: formData.get("profilePhoto") as string,
       nationality: formData.get("nationality") as string,
     };
@@ -47,20 +47,18 @@ export async function createEmployee(
     }
 
     const backendPayload = {
-      employees: {
-        name: validatedPayload.data.name,
-        idNumber: validatedPayload.data.idNumber,
-        group: validatedPayload.data.group,
-        jobTitle: validatedPayload.data.jobTitle,
-        educationQualification: validatedPayload.data.educationQualification,
-        joiningDate: validatedPayload.data.joiningDate,
-        email: validatedPayload.data.email,
-        phoneNumber: validatedPayload.data.phoneNumber,
-        gender: validatedPayload.data.gender,
-        status: validatedPayload.data.status,
-        profilePhoto: validatedPayload.data.profilePhoto,
-        nationality: validatedPayload.data.nationality,
-      },
+      name: validatedPayload.data.name,
+      idNumber: validatedPayload.data.idNumber,
+      group: validatedPayload.data.group,
+      jobTitle: validatedPayload.data.jobTitle,
+      educationQualification: validatedPayload.data.educationQualification,
+      joiningDate: validatedPayload.data.joiningDate,
+      email: validatedPayload.data.email,
+      phoneNumber: validatedPayload.data.phoneNumber,
+      gender: validatedPayload.data.gender,
+      status: validatedPayload.data.status,
+      profilePhoto: validatedPayload.data.profilePhoto,
+      nationality: validatedPayload.data.nationality,
     };
 
     const newFormData = new FormData();
@@ -71,6 +69,8 @@ export async function createEmployee(
     // }
 
     const response = await serverFetch.post("/employees", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
       body: newFormData,
     });
     console.log(newFormData);
@@ -133,7 +133,7 @@ export async function updateEmployee(
     }
 
     // Make PATCH request to update employee
-    const response = await serverFetch.patch(`/employees/${employeeId}`, {
+    const response = await serverFetch.patch(`employees/${employeeId}`, {
       body: updateFormData,
     });
 

@@ -187,53 +187,23 @@ const EmployeeFormDialog = ({
             </Field>
 
             {/* Status (optional, for edit only) */}
-            {isEdit && (
-              <Field>
-                <FieldLabel htmlFor="status">Status</FieldLabel>
-                <Select value={employeeStatus}>
-                  <SelectTrigger>
-                    <SelectValue placeholder="Select status" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="ACTIVE">Active</SelectItem>
-                    <SelectItem value="INACTIVE">Inactive</SelectItem>
-                    <SelectItem value="ON_LEAVE">ON_LEAVE</SelectItem>
-                    <SelectItem value="TANSFAR">Transfer</SelectItem>
-                  </SelectContent>
-                </Select>
-                <InputFieldError state={state} field="status" />
-              </Field>
-            )}
 
+            <Field>
+              <FieldLabel htmlFor="status">Status</FieldLabel>
+              <Input type="hidden" name="status" value={employeeStatus} />
+              <Select value={employeeStatus} onValueChange={setEmployeeStatus}>
+                <SelectTrigger>
+                  <SelectValue placeholder="Select status" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="ACTIVE">Active</SelectItem>
+                  <SelectItem value="INACTIVE">Inactive</SelectItem>
+                  <SelectItem value="ON_LEAVE">On Leave</SelectItem>
+                  <SelectItem value="TRANSFER">Transfer</SelectItem>
+                </SelectContent>
+              </Select>
+            </Field>
             {/* Profile Photo */}
-            {!isEdit && (
-              <Field>
-                <FieldLabel htmlFor="file">Profile Photo</FieldLabel>
-                {/* {selectedFile && (
-                  <Image
-                    src={
-                      typeof selectedFile === "string"
-                        ? selectedFile
-                        : URL.createObjectURL(selectedFile)
-                    }
-                    alt="Profile Photo Preview"
-                    width={50}
-                    height={50}
-                    className="mb-2 rounded-full"
-                  />
-                )} */}
-                {/* <Input
-                  ref={fileInputRef}
-                  id="file"
-                  name="file"
-                  type="file"
-                  accept="image/*"
-                  onChange={handleFileChange}
-                /> */}
-
-                <InputFieldError state={state} field="profilePhoto" />
-              </Field>
-            )}
 
             {/* Other optional fields */}
             <Field>
